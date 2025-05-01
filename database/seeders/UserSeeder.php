@@ -19,11 +19,13 @@ class UserSeeder extends Seeder
             ["name"=> "Rahul","email"=> "rahul@gmail.com"],
         ];
 
+        User::truncate();
+
         foreach ($users as $user) {
             User::create([
                 "name"=> $user["name"],
                 "email"=> $user["email"],
-                "password"=> bcrypt('password123'),
+                "password"=> bcrypt("password"),
                 "created_at"=> now(),
                 "updated_at"=> now(),
             ]);

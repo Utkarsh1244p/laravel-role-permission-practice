@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
             ["name"=> "viewer", "created_at"=> now(), "updated_at"=> now()],
         ];
 
+        Role::truncate();
         Role::insert($roles);
     }
 }

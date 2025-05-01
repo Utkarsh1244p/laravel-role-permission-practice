@@ -44,5 +44,21 @@ class UserController extends Controller
         }
     }
 
+    public function getRoles(){
+        try{
+            $roles = Role::select('id', 'name', 'slug')->get();
+            return response()->json([
+                "message" => "Roles retrieved successfully.",
+                "status" => 200,
+                "data" => $roles
+            ]);
+        }catch(Exception $e){
+            throw $e;
+            return response()->json([
+                "message" => "Server Error.",
+                "status" => 500
+            ]);
+        }
+    }
 
 }

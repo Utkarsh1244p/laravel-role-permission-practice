@@ -8,5 +8,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/{user}/assign-role', [UserController::class, 'assignRole']);
-Route::get('/{user}/roles', [UserController::class, 'getUserRole']);
+Route::group(['prefix'=> 'users'], function () {
+    Route::post('/{user}/assign-role', [UserController::class, 'assignRole']);
+    Route::get('/{user}/roles', [UserController::class, 'getUserRole']);
+});

@@ -22,14 +22,14 @@ class AssignRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "role" => "required|exists:roles,id",
+            "role_id" => "required|exists:roles,id",
         ];
     }
 
     public function messages(){
         return [
-            "role.required" => "Role is required.",
-            "role.exists" => "Role does not exist.",
+            "role_id.required" => "Role ID is required.",
+            "role_id.exists" => "Role does not exist.",
         ];
     }
 }

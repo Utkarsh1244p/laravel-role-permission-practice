@@ -12,11 +12,8 @@ class UserController extends Controller
     public function assignRole(AssignRoleRequest $request, User $user)
     {
         try{
-            $roleId = Role::find($request->role)->value("id");
-            $user->roles()->create([
-            "user_id" => $user->id,
-            "role_id" => $roleId,
-            ]);
+            $roleId = Role::find($request->role_id)->value("id");
+            $user->roles()->attach($roleId);
             return response()->json([
                 "message" => "Role assigned successfully.",
                 "status" => 201

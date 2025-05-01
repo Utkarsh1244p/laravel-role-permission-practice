@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AssignRoleRequest;
+use App\Http\Resources\RoleResource;
+use App\Http\Resources\UserRoleResource;
 use App\Models\Role;
 use App\Models\User;
 use Exception;
@@ -12,7 +14,7 @@ class UserController extends Controller
     public function assignRole(AssignRoleRequest $request, User $user)
     {
         try{
-            $roleId = Role::find($request->role_id)->value("id");
+            $roleId = Role::where("name", $request->role)->value("id");
             $user->roles()->attach($roleId);
             return response()->json([
                 "message" => "Role assigned successfully.",
@@ -26,17 +28,17 @@ class UserController extends Controller
         }
     }
 
-    public function getUserRole(User $user){
+    public function getUserRole($id){
         try{
-            $userId = $user->id;
-            $userRoles = $user->roles()->get();
+            $user = User::find($id)->with("roles")->first();
             return response()->json([
                 "message" => "User roles retrieved successfully.",
                 "status" => 200,
-                "data" => $userRoles
+                "data" => new UserRoleResource($user)
             ]);
 
         }catch(Exception $e){
+            throw $e;
             return response()->json([
                 "message" => "Server Error.",
                 "status" => 500
@@ -50,7 +52,7 @@ class UserController extends Controller
             return response()->json([
                 "message" => "Roles retrieved successfully.",
                 "status" => 200,
-                "data" => $roles
+                "data" => RoleResource::collection($roles)
             ]);
         }catch(Exception $e){
             throw $e;

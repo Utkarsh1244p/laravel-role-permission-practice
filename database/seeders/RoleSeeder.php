@@ -14,9 +14,9 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-            ["name"=> "admin", "created_at"=> now(), "updated_at"=> now()],
-            ["name"=> "user", "created_at"=> now(), "updated_at"=> now()],
-            ["name"=> "viewer", "created_at"=> now(), "updated_at"=> now()],
+            ["name"=> "admin", "slug"=> "admin",  "created_at"=> now(), "updated_at"=> now()],
+            ["name"=> "user", "slug"=> "user",  "created_at"=> now(), "updated_at"=> now()],
+            ["name"=> "viewer", "slug"=> "viewer",  "created_at"=> now(), "updated_at"=> now()],
         ];
 
         Role::truncate();
